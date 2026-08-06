@@ -21,8 +21,32 @@
   <entry>
     <title>my first blog</title>
     <url>/2026/02/16/my-first-blog/</url>
-    <content><![CDATA[<h3 id="此行，终抵繁星"><a href="#此行，终抵繁星" class="headerlink" title="此行，终抵繁星"></a>此行，终抵繁星</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+    <content><![CDATA[<p>这是我的第一篇博客，用一段 C 语言代码向世界打个招呼嘻嘻。</p>
+<span id="more"></span>
 
+<h3 id="此行，终抵繁星"><a href="#此行，终抵繁星" class="headerlink" title="此行，终抵繁星"></a>此行，终抵繁星</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>my-second-blog</title>
+    <url>/2026/08/06/my-second-blog/</url>
+    <content><![CDATA[<p>不知道写什么就是想再测试一下</p>
+<span id="more"></span>
+
+<h2 id="一个标题"><a href="#一个标题" class="headerlink" title="一个标题"></a>一个标题</h2><p><strong>长沙今日天气播报</strong>：局部多云 🌤️，27°C，体感闷热。</p>
+<p><strong>天气状况</strong>：局部多云 🌤️<br><strong>温度</strong>：当前 27°C，最高预计 34°C，最低 25°C<br><strong>体感温度</strong>：30°C（闷热）<br><strong>湿度</strong>：87% | <strong>风速</strong>：6 km&#x2F;h 东南风 | <strong>降水</strong>：暂无</p>
+<p><strong>穿衣建议</strong>：今天长沙湿度较高、体感闷热。建议穿轻薄透气的短袖或背心，面料选棉麻、真丝等吸汗材质。中午前后气温会冲到34°C，外出注意防晒，戴帽子或打遮阳伞。早晚虽然25°C左右，但因为湿度大，不需要加外套。</p>
+<p>今天不算酷热但闷，多喝水，别中暑了。🖤</p>
+<p>还能写点啥呢（（<br>就这样吧放一张手机里第一张照片测试一下<br>（噢其实手机里第一张是一个视频，截了视频第一帧zzz）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2026/08/06/my-second-blog/phone-first-picture.jpeg"
+                      alt="phone-first-picture"
+                ></p>
+<p>怀念这个KTV，可惜没有献唱一首</p>
+<p>seeuguys~</p>
 ]]></content>
   </entry>
 </search>
