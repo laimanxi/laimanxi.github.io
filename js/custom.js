@@ -224,20 +224,5 @@
     document.addEventListener(evt, initCustom);
   });
 })();
-setTimeout(function () {
-  var layer = document.querySelector('.aurora-global');
-  if (!layer) { document.title = 'NO-LAYER'; return; }
-  var blob = layer.querySelector('.aurora-blob');
-  var r = layer.getBoundingClientRect();
-  var b = blob.getBoundingClientRect();
-  document.title = JSON.stringify({
-    rect: [r.width, r.height],
-    blobRect: [Math.round(b.width), Math.round(b.height), Math.round(b.left), Math.round(b.top)],
-    layerZ: window.getComputedStyle(layer).zIndex,
-    layerBg: window.getComputedStyle(layer).backgroundColor,
-    bodyBg: window.getComputedStyle(document.body).backgroundColor,
-    htmlBg: window.getComputedStyle(document.documentElement).backgroundColor
-  });
-}, 2500);
 
 
