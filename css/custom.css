@@ -1,0 +1,232 @@
+/* ==========================================================================
+   自定义全站背景 + 首页横幅：晕染圆球背景（全站共享）+ 鼠标揭示文字（首页）
+   由 custom.js 注入 DOM，此处仅负责样式。
+   背景为全局 fixed 层（.aurora-global），所有页面视觉一致。
+   ========================================================================== */
+
+/* 力量感标题字体：Noto Sans SC 900（谷歌字体国内镜像，按字形分片加载） */
+@import url('https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@900&display=swap');
+
+/* ---------- 全站统一浅色底（仅亮色模式；暗色模式仍用主题默认深色） ----------
+   注意：本文件在 head 中先于主题 style.css 加载，需用 html 前缀提高优先级；
+   不用 html:root 选择器，避免误伤暗色模式（:root 在任何模式下都匹配） */
+html:not(.dark) {
+  --background-color: #f7f6f3;
+  --banner-bg: #f7f6f3; /* 横幅底色，镂空文字的填充色需与其一致 */
+}
+
+/* ---------- 全局晕染背景层（所有页面共享，由 JS 注入 body） ---------- */
+.aurora-global {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #f7f6f3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 主内容抬升到背景层之上，且自身背景透明（否则不透出背景层；
+   主题给 main 设了不透明底色，需 !important 覆盖） */
+main.page-container {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+/* 暗色模式不显示圆球，保持主题默认深色 */
+html.dark .aurora-global {
+  display: none;
+}
+
+/* body 底色透明化（仅亮色模式），让全局背景层透出来 */
+html:not(.dark) body {
+  background: transparent !important;
+}
+
+/* 首页主题的 fixed 背景层透明化，让全局背景层透出 */
+.home-banner-background {
+  background: transparent !important;
+  overflow: hidden;
+}
+
+.home-banner-background img {
+  display: none !important;
+}
+
+/* ---------- 晕染圆球（浅色版：低饱和马卡龙色，multiply 混合） ---------- */
+.aurora-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  mix-blend-mode: multiply; /* 浅底下正片叠底，交汇时颜色柔和叠加 */
+  will-change: transform;
+  pointer-events: none;
+}
+
+.aurora-blob.b1 {
+  width: 46vmax;
+  height: 46vmax;
+  left: -12%;
+  top: -18%;
+  background: radial-gradient(circle at 35% 35%, rgba(165, 180, 252, 0.6), transparent 65%);
+  animation: aurora-drift-1 26s ease-in-out infinite alternate;
+}
+
+.aurora-blob.b2 {
+  width: 40vmax;
+  height: 40vmax;
+  right: -10%;
+  top: 5%;
+  background: radial-gradient(circle at 60% 40%, rgba(251, 207, 232, 0.6), transparent 65%);
+  animation: aurora-drift-2 32s ease-in-out infinite alternate;
+}
+
+.aurora-blob.b3 {
+  width: 42vmax;
+  height: 42vmax;
+  left: 20%;
+  bottom: -25%;
+  background: radial-gradient(circle at 50% 50%, rgba(186, 230, 253, 0.55), transparent 65%);
+  animation: aurora-drift-3 38s ease-in-out infinite alternate;
+}
+
+.aurora-blob.b4 {
+  width: 22vmax;
+  height: 22vmax;
+  right: 22%;
+  bottom: 10%;
+  background: radial-gradient(circle at 50% 50%, rgba(253, 230, 138, 0.4), transparent 65%);
+  animation: aurora-drift-2 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes aurora-drift-1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(16vw, 14vh) scale(1.18); }
+}
+
+@keyframes aurora-drift-2 {
+  from { transform: translate(0, 0) scale(1.1); }
+  to   { transform: translate(-14vw, 16vh) scale(0.92); }
+}
+
+@keyframes aurora-drift-3 {
+  from { transform: translate(0, 0) scale(0.95); }
+  to   { transform: translate(12vw, -14vh) scale(1.15); }
+}
+
+/* ---------- 揭示文字（MiMo 风格） ---------- */
+/* 隐藏主题原本的标题与打字机副标题（由 JS 注入的 .reveal-wrap 替代） */
+.home-banner-container .description {
+  display: none !important;
+}
+
+/* 让横幅内容列占满宽度，使 SVG 的 max-width 百分比有确定参照物（窄屏可缩放） */
+.home-banner-container .content {
+  width: 100%;
+}
+
+.reveal-wrap {
+  position: relative;
+  display: grid; /* 两层 SVG 同格堆叠，由 justify-self 居中 */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 8px;
+  margin-bottom: 2rem;
+  font-family: 'Chillax-Variable', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-weight: 900;
+  font-size: clamp(42px, 7.5vw, 110px); /* 主题的 rem 基准不是 16px，用 px 控制上限 */
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  user-select: none;
+  cursor: default;
+}
+
+/* 每层一个 SVG，尺寸由 JS 实测文字宽度后显式设置；
+   内部 <text>：前缀 text-anchor=end、名字 text-anchor=start，于中线相接 */
+.reveal-layer {
+  grid-area: 1 / 1;
+  justify-self: center;
+  display: block;
+  overflow: visible;
+  max-width: 100%; /* 窄屏时按 viewBox 比例整体缩小，防止文字溢出 */
+  height: auto;
+}
+
+.reveal-layer text {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+/* 底层：镂空中文，常驻可见。
+   fill 与底色一致 + paint-order: stroke —— 描边先画、填充后盖，
+   只留字形外轮廓一圈干净线条，笔画交汇处不再双线交叠。
+   反向遮罩：圆孔内挖掉中文，避免与英文层叠字 */
+.reveal-base text {
+  fill: var(--banner-bg);
+  stroke: rgba(30, 30, 30, 0.6);
+  stroke-width: 2.2px;
+  paint-order: stroke;
+  stroke-linejoin: round;
+}
+
+.reveal-base {
+  -webkit-mask-image: radial-gradient(circle var(--r, 0px) at var(--mx, 50%) var(--my, 50%), transparent 52%, #000 78%);
+  mask-image: radial-gradient(circle var(--r, 0px) at var(--mx, 50%) var(--my, 50%), transparent 52%, #000 78%);
+}
+
+/* 顶层：实心深色英文，与中文同字号，仅在鼠标圆孔内显现 */
+.reveal-top text {
+  fill: #1a1a1a;
+}
+
+.reveal-top {
+  -webkit-mask-image: radial-gradient(circle var(--r, 0px) at var(--mx, 50%) var(--my, 50%), #000 55%, transparent 78%);
+  mask-image: radial-gradient(circle var(--r, 0px) at var(--mx, 50%) var(--my, 50%), #000 55%, transparent 78%);
+}
+
+/* 触屏 / 减弱动态：退化为中文、英文静态双行（两层不再堆叠） */
+.reveal-wrap.reveal-static {
+  display: block;
+}
+
+.reveal-wrap.reveal-static .reveal-layer {
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.reveal-wrap.reveal-static .reveal-base,
+.reveal-wrap.reveal-static .reveal-top {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.reveal-wrap.reveal-static .reveal-top {
+  margin-top: 0.35em;
+  font-size: 0.55em;
+}
+
+.reveal-wrap.reveal-static .reveal-top text {
+  fill: rgba(30, 30, 30, 0.7);
+}
+
+/* 窄屏缩小字号，避免文字溢出 */
+@media (max-width: 640px) {
+  .reveal-wrap {
+    font-size: clamp(28px, 8.5vw, 40px);
+  }
+}
+
+/* 尊重系统"减弱动态效果"设置：圆球静止 */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob {
+    animation: none !important;
+  }
+}
